@@ -4,6 +4,12 @@ This repository contains the code scripts for our paper on instability.
 It is required by the journal. The repository will become public when we
 submit the article.
 
+| Folder name | Contents |
+| --------  | -------- |
+| `R`       | Folder of R code |
+| `R/data-auto` | Folder for saved results of computation |
+| `R/pix-auto` | Folder for saved figure files |
+
 | File name | Contents |
 | --------  | -------- |
 | `R`       | Folder of R code |
