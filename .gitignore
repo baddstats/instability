@@ -1,0 +1,38 @@
+*~
+
+*.Rhistory
+*.RData
+
+# AP added these 
+
+# Mac OS folder attribute file
+*.DS_Store
+
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+
+# RStudio files
+.Rproj.user/
+
+# R package checker stuff
+*.Rcheck
+
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+*_files
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+paper1thresholding/thresholdpaper.synctex.gz
+*.synctex.gz
+*.out
+
+# RStudio project file(s)
+*.Rproj
