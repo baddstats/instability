@@ -1,0 +1,70 @@
+---
+title: "Figures of contrast vs pixel size"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r, setup, include=FALSE, message=FALSE}
+knitr::opts_chunk$set(
+  message=FALSE,
+  fig.width=6,
+  fig.height=6
+)
+
+library(spatstat)
+source("evidenceTable.R")
+source("wofe.R")
+library(ggplot2)
+library(ggforce)
+```
+
+```{r}
+plot_pixel_vs_contrast <- function(df, Ctrue, zoom_xs, zoom_ys, zoom_factor=0.5) {
+  p <- ggplot(df) +
+    aes(x=eps, y=chat) +
+    geom_line() +
+    geom_abline(intercept=Ctrue, slope=0, colour="green") +
+    scale_x_log10() +
+    facet_zoom(xlim=zoom_xs, ylim=zoom_ys, horizontal=FALSE, zoom.size=zoom_factor) +
+    labs(x="Pixel Size (km)", y="Contrast") +
+    theme_bw() +
+    theme(panel.spacing=unit(0.5, "cm"),
+          panel.grid.major=element_blank(), 
+          panel.grid.minor=element_blank(),
+          axis.title.y=element_text(vjust=4),
+          plot.margin=margin(l=10))
+  return(p)
+}
+```
+
+```{r}
+source("pixelsizeData.R")
+Gold <- mur30$gold
+Feature <- mur30["greenstone"]
+```
+
+```{r}
+load('data-auto/pixelsizeS1.rda')
+resultsS1 <- data.frame(eps=eps,  chat=chat)
+C0S1 <- wofe(Gold, Feature, pixelsize=0)$param["C", "greenstone"]
+```
+
+```{r}
+figS1zoom <- plot_pixel_vs_contrast(resultsS1, C0S1, c(0.1, 0.2), c(3.2, 5))
+ggsave("pix-auto/pixS1zoomed.pdf", figS1zoom)
+figS1zoom
+```
+
+```{r}
+load('data-auto/pixelsizeR1ordered.rda')
+resultsR1ord <- data.frame(eps=eps,  chat=chat)
+C0R1o <- wofe(Gold, Feature, pixelsize=0)$param["C", "greenstone"]
+```
+
+```{r}
+figR1ordZoom <- plot_pixel_vs_contrast(resultsR1ord, C0R1o, c(0.1, 0.2), c(3.2, 5))
+ggsave("pix-auto/pixR1ordZoomed.pdf", figR1ordZoom)
+figR1ordZoom
+```
+
